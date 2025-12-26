@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مسجل صوت الجامعة</title>
     <!-- خط Cairo -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- مكتبة الأيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- ربط ملف التنسيق -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,8 +16,14 @@
     <div class="container">
         <!-- الرأس -->
         <header>
-            <h1>🎙️ مسجل الصوت</h1>
-            <p>جامعة الشام العالمية</p>
+            <div class="header-content">
+                <h1>🎙️ مسجل الصوت</h1>
+                <p>جامعة الشام العالمية</p>
+            </div>
+            <!-- زر تبديل الوضع -->
+            <button id="themeToggle" class="theme-btn" title="تبديل الوضع">
+                <i class="fas fa-moon"></i>
+            </button>
         </header>
 
         <!-- منطقة التحكم -->
@@ -24,30 +32,35 @@
             
             <div class="buttons">
                 <button id="startBtn" class="btn btn-record">
-                    <span>🔴</span> ابدأ التسجيل
+                    <i class="fas fa-microphone"></i> ابدأ التسجيل
                 </button>
                 <button id="stopBtn" class="btn btn-stop" disabled>
-                    <span>⏹️</span> إيقاف
+                    <i class="fas fa-stop"></i> إيقاف
                 </button>
             </div>
             
             <!-- مؤشر التسجيل (نبض) -->
             <div id="visualizer" class="visualizer hidden">
                 <div class="pulse-ring"></div>
+                <div class="pulse-ring delay"></div>
             </div>
         </div>
 
         <!-- قائمة التسجيلات -->
         <div class="recordings-section">
-            <h2>📂 التسجيلات المحفوظة</h2>
+            <div class="section-header">
+                <h2>📂 التسجيلات المحفوظة</h2>
+                <button id="clearBtn" class="clear-btn" title="حذف الكل">
+                    <i class="fas fa-trash-alt"></i> حذف الكل
+                </button>
+            </div>
             <ul id="recordingsList">
                 <!-- هنا ستظهر التسجيلات -->
             </ul>
-            <button id="clearBtn" class="clear-btn">حذف جميع التسجيلات</button>
         </div>
     </div>
 
-<!-- مكتبة SweetAlert2 للتنبيهات الجميلة -->
+    <!-- مكتبة SweetAlert2 للتنبيهات الجميلة -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- ربط ملف الجافاسكربت -->
     <script src="script.js"></script>

@@ -1,52 +1,99 @@
 :root {
-    --sham-blue: #183b65;
-    --sham-dark: #082c58;
-    --sham-gold: #b9955c;
-    --text-white: #ffffff;
-    --bg-light: #f5f8ff;
+    /* الألوان في الوضع النهاري (Light Mode) */
+    --bg-body: #f5f8ff;
+    --bg-container: #ffffff;
+    --text-primary: #183b65;
+    --text-secondary: #5a6b8c;
+    --border-color: #b9955c;
+    --header-bg: #183b65;
+    --header-text: #ffffff;
+    --btn-record: #183b65;
+    --btn-stop: #dc3545;
+    --list-item-bg: #ffffff;
+    --list-item-border: #e0e0e0;
+    --shadow: 0 10px 30px rgba(24, 59, 101, 0.1);
+}
+
+/* الألوان في الوضع الليلي (Dark Mode) */
+[data-theme="dark"] {
+    --bg-body: #051a35;
+    --bg-container: #082c58;
+    --text-primary: #ffffff;
+    --text-secondary: #b9955c;
+    --border-color: #b9955c;
+    --header-bg: #051a35;
+    --header-text: #b9955c;
+    --btn-record: #b9955c; /* الذهبي للتسجيل في الليلي */
+    --btn-stop: #ff4d5e;
+    --list-item-bg: #10386b;
+    --list-item-border: #1f4b85;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 body {
     font-family: 'Cairo', sans-serif;
-    background-color: var(--bg-light);
+    background-color: var(--bg-body);
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    color: var(--sham-blue);
+    color: var(--text-primary);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
-    background: white;
+    background: var(--bg-container);
     width: 90%;
-    max-width: 500px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(24, 59, 101, 0.15);
+    max-width: 450px;
+    border-radius: 24px;
+    box-shadow: var(--shadow);
     overflow: hidden;
-    border: 2px solid var(--sham-gold);
+    border: 2px solid var(--border-color);
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 header {
-    background-color: var(--sham-blue);
-    color: var(--text-white);
-    padding: 20px;
-    text-align: center;
-    border-bottom: 4px solid var(--sham-gold);
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid var(--border-color);
+    transition: background-color 0.3s;
 }
 
-header h1 { margin: 0; font-size: 1.8rem; }
-header p { margin: 5px 0 0; opacity: 0.8; font-size: 0.9rem; }
+.header-content h1 { margin: 0; font-size: 1.5rem; }
+.header-content p { margin: 2px 0 0; opacity: 0.9; font-size: 0.8rem; font-weight: 600; }
+
+/* زر الثيم */
+.theme-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--header-text);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+}
+.theme-btn:hover { background: rgba(255, 255, 255, 0.2); transform: rotate(15deg); }
 
 .controls {
-    padding: 30px;
+    padding: 30px 20px;
     text-align: center;
 }
 
 .status-text {
-    margin-bottom: 20px;
-    font-weight: bold;
-    color: var(--sham-dark);
+    margin-bottom: 25px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
 }
 
 .buttons {
@@ -56,30 +103,26 @@ header p { margin: 5px 0 0; opacity: 0.8; font-size: 0.9rem; }
 }
 
 .btn {
-    padding: 12px 24px;
+    padding: 12px 28px;
     border: none;
     border-radius: 50px;
     font-family: inherit;
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.2s, opacity 0.2s;
+    transition: transform 0.2s, opacity 0.2s, background-color 0.3s;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    font-size: 1rem;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .btn:active { transform: scale(0.95); }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(100%); }
 
-.btn-record {
-    background-color: var(--sham-blue);
-    color: white;
-}
-
-.btn-stop {
-    background-color: #dc3545;
-    color: white;
-}
+.btn-record { background-color: var(--btn-record); }
+.btn-stop { background-color: var(--btn-stop); }
 
 /* أنيميشن التسجيل */
 .visualizer {
@@ -87,67 +130,86 @@ header p { margin: 5px 0 0; opacity: 0.8; font-size: 0.9rem; }
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 25px;
+    position: relative;
 }
 
 .hidden { display: none; }
 
 .pulse-ring {
-    width: 20px;
-    height: 20px;
-    background-color: var(--sham-gold);
+    width: 15px;
+    height: 15px;
+    background-color: var(--border-color);
     border-radius: 50%;
-    animation: pulse 1.5s infinite;
+    position: absolute;
+    animation: pulse 1.5s infinite ease-out;
 }
+.pulse-ring.delay { animation-delay: 0.5s; }
 
 @keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(3); opacity: 0; }
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(4); opacity: 0; }
 }
 
 .recordings-section {
-    background-color: #f8f9fa;
+    background-color: rgba(0,0,0,0.02);
     padding: 20px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--list-item-border);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 .recordings-section h2 {
-    font-size: 1.2rem;
-    margin-top: 0;
-    color: var(--sham-blue);
+    font-size: 1rem;
+    margin: 0;
+    color: var(--text-secondary);
 }
+
+.clear-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    font-family: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+.clear-btn:hover { background: rgba(220, 53, 69, 0.1); }
 
 ul {
     list-style: none;
     padding: 0;
-    max-height: 200px;
+    max-height: 250px;
     overflow-y: auto;
 }
 
+/* تخصيص شريط التمرير */
+ul::-webkit-scrollbar { width: 6px; }
+ul::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 10px; }
+
 li {
-    background: white;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid #ddd;
+    background: var(--list-item-bg);
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    border: 1px solid var(--list-item-border);
+    transition: background-color 0.3s;
 }
 
 audio {
-    height: 30px;
-    max-width: 200px;
-}
-
-.clear-btn {
+    height: 32px;
+    border-radius: 20px;
     width: 100%;
-    padding: 10px;
-    background: transparent;
-    border: 1px dashed var(--sham-blue);
-    color: var(--sham-blue);
-    cursor: pointer;
-    margin-top: 10px;
-    border-radius: 8px;
+    margin-top: 5px;
 }
-.clear-btn:hover { background: #eef2ff; }
+/* جعل مشغل الصوت يبدو أفضل في الوضع الليلي */
+[data-theme="dark"] audio {
+    filter: invert(100%) hue-rotate(180deg);
+}
