@@ -234,3 +234,4 @@ clearBtn.addEventListener('click', () => {
         }
     });
 });
+// python3 -m http.server
